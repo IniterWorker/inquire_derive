@@ -1,0 +1,24 @@
+[package]
+name = "inquire_derive"
+version = "0.1.0"
+edition = "2021"
+authors = ["Walter Bonetti <walter.bonetti@epitech.eu>"]
+license = "MIT"
+description = "inquire_derive helps inquire integration and maintenance"
+keywords = ["inquire", "derive"]
+include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE"]
+repository = "https://github.com/IniterWorker/inquire_derive"
+readme = "crates-io.md"
+
+[lib]
+name = "inquire_derive"
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "1.0.90"
+darling = "0.14.1"
+
+[dev-dependencies]
+inquire = { version = "0.4" }

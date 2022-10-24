@@ -1,0 +1,18 @@
+[package]
+name = "inquire_test"
+version = "0.1.0"
+edition = "2021"
+authors = ["Walter Bonetti <walter.bonetti@epitech.eu>"]
+license = "MIT"
+description = "inquire_derive helps inquire integration and maintenance"
+keywords = ["inquire", "derive"]
+include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE"]
+repository = "https://github.com/IniterWorker/inquire_derive"
+readme = "crates-io.md"
+
+[dependencies]
+inquire = { version = "0.4" }
+
+[dev-dependencies]
+inquire = { version = "0.4" }
+inquire_derive = { path = "../inquire_derive" }
