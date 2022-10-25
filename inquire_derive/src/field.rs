@@ -2,8 +2,7 @@ use darling::FromField;
 use proc_macro2::TokenStream;
 
 use crate::prompts::{
-    Confirm, CustomType, DateSelect, Editor, FieldInvokeInquire, MultiSelect, Password, Select,
-    Text,
+    Confirm, CustomType, DateSelect, Editor, FieldInquireForm, MultiSelect, Password, Select, Text,
 };
 
 #[derive(Debug)]

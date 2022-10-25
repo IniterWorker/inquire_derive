@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// Confirm is a prompt to ask the user for simple yes/no questions, commonly known by asking the user displaying the (y/n) text.
 #[derive(Debug, FromMeta, Default)]
@@ -31,7 +31,7 @@ pub struct Confirm {
     pub error_message: Option<String>,
 }
 
-impl FieldInvokeInquire for Confirm {
+impl FieldInquireForm for Confirm {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

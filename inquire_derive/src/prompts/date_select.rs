@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 #[derive(Debug, FromMeta, Default)]
 #[darling(default)]
@@ -27,7 +27,7 @@ pub struct DateSelect {
     pub max_date: Option<String>,
 }
 
-impl FieldInvokeInquire for DateSelect {
+impl FieldInquireForm for DateSelect {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

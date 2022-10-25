@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// Editor prompts are meant for cases where you need the user to write some text that might not fit in a single line, such as long descriptions or commit messages.
 #[derive(Debug, FromMeta, Default)]
@@ -26,7 +26,7 @@ pub struct Editor {
     pub formatter: Option<String>,
 }
 
-impl FieldInvokeInquire for Editor {
+impl FieldInquireForm for Editor {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

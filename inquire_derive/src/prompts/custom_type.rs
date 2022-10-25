@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// CustomType prompts are generic prompts suitable for when you need to parse the user input into a specific type, for example an f64 or a rust_decimal, maybe even an uuid.
 #[derive(Debug, FromMeta, Default)]
@@ -23,7 +23,7 @@ pub struct CustomType {
     pub parser: Option<String>,
 }
 
-impl FieldInvokeInquire for CustomType {
+impl FieldInquireForm for CustomType {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

@@ -4,7 +4,7 @@ use quote::{format_ident, quote};
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 #[derive(Debug, FromMeta, Default)]
 #[darling(default)]
@@ -30,7 +30,7 @@ pub struct Text {
     pub page_size: Option<syn::LitInt>,
 }
 
-impl FieldInvokeInquire for Text {
+impl FieldInquireForm for Text {
     fn generate_inquire_method(
         &self,
         ctx: &FieldSingleContext,

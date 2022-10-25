@@ -6,7 +6,7 @@ use crate::field::{FieldMultiContext, FieldSingleContext};
 
 #[derive(Debug, FromDeriveInput)]
 #[darling(attributes(inquire), supports(struct_named))]
-pub struct InquireInvokeOpts {
+pub struct InquireFormOpts {
     /// Current struct ident
     pub ident: syn::Ident,
     /// Option to set inquire_#fieldname as private
@@ -15,7 +15,7 @@ pub struct InquireInvokeOpts {
     pub data: ast::Data<util::Ignored, FieldMultiContext>,
 }
 
-impl InquireInvokeOpts {
+impl InquireFormOpts {
     pub fn gen(self) -> Result<TokenStream, Vec<syn::Error>> {
         let ident = &self.ident;
         let fields = self

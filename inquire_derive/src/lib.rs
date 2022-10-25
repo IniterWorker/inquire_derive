@@ -1,7 +1,7 @@
 //! # Inquire Derive
 //!
 //!
-use crate::structural::InquireInvokeOpts;
+use crate::structural::InquireFormOpts;
 use proc_macro::TokenStream;
 use syn::DeriveInput;
 
@@ -9,10 +9,10 @@ pub(crate) mod field;
 pub(crate) mod prompts;
 pub(crate) mod structural;
 
-#[proc_macro_derive(InquireInvoke, attributes(inquire))]
+#[proc_macro_derive(InquireForm, attributes(inquire))]
 pub fn derive_inquire(input: TokenStream) -> TokenStream {
-    let ast: DeriveInput = syn::parse(input).expect("Error InquireInvoke derive");
-    let parsed: Result<InquireInvokeOpts, darling::Error> =
+    let ast: DeriveInput = syn::parse(input).expect("Error InquireForm derive");
+    let parsed: Result<InquireFormOpts, darling::Error> =
         darling::FromDeriveInput::from_derive_input(&ast);
     // println!("{:?}", parsed);
     parsed.unwrap().gen().unwrap().into()

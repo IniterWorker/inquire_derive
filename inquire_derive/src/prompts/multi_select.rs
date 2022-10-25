@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// MultiSelect prompts are suitable for when you need the user to select many options (including none if applicable) among a list of them.
 /// The user can select (or deselect) the current highlighted option by pressing space, clean all selections by pressing the left arrow and select all options by pressing the right arrow.
@@ -31,7 +31,7 @@ pub struct MultiSelect {
     pub filter_function: Option<String>,
 }
 
-impl FieldInvokeInquire for MultiSelect {
+impl FieldInquireForm for MultiSelect {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

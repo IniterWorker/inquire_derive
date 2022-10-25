@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// Select prompts are suitable for when you need the user to select one option among many.
 #[derive(Debug, FromMeta, Default)]
@@ -28,7 +28,7 @@ pub struct Select {
     pub filter_function: Option<String>,
 }
 
-impl FieldInvokeInquire for Select {
+impl FieldInquireForm for Select {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,

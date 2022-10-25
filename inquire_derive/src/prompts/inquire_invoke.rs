@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 use crate::field::FieldSingleContext;
 
 /// [`FieldInvokeInquire`] interfacing field_type impl
-pub trait FieldInvokeInquire {
+pub trait FieldInquireForm {
     /// Generate the call for inquire_#fieldname
     fn generate_inquire_method_call(
         &self,

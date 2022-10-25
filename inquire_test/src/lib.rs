@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod tests {
-    use inquire_derive::InquireInvoke;
+    use inquire_derive::InquireForm;
 
     #[test]
     fn basic_inquire() {
-        #[derive(Debug, InquireInvoke)]
+        #[derive(Debug, InquireForm)]
         pub struct TestStruct {
             #[inquire(text(prompt_message = "What's your main_text?"))]
             pub main_text: String,

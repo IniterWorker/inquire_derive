@@ -3,7 +3,7 @@ use proc_macro2::TokenStream;
 
 use crate::field::FieldSingleContext;
 
-use super::FieldInvokeInquire;
+use super::FieldInquireForm;
 
 /// Password prompts are meant for secretive text inputs.
 #[derive(Debug, FromMeta, Default)]
@@ -28,7 +28,7 @@ pub struct Password {
     pub validators: Option<String>,
 }
 
-impl FieldInvokeInquire for Password {
+impl FieldInquireForm for Password {
     fn generate_inquire_method(
         &self,
         _ctx: &FieldSingleContext,
