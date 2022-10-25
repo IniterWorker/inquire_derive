@@ -80,4 +80,34 @@ mod tests {
         let df = TestStruct::from_inquire();
         println!("{:?}", df)
     }
+
+    #[test]
+    fn select_inquire() {
+        fn get_list_options() -> Vec<String> {
+            vec!["rings".into(), "power".into()]
+        }
+
+        #[derive(Debug, InquireForm)]
+        pub struct TestStruct {
+            #[inquire(select(
+                prompt_message = "What's your selection?",
+                options = "get_list_options()"
+            ))]
+            pub path: String,
+        }
+
+        impl Default for TestStruct {
+            fn default() -> Self {
+                Self {
+                    path: String::from("test"),
+                }
+            }
+        }
+
+        let mut ex = TestStruct {
+            path: String::new(),
+        };
+        ex.inquire_mut().unwrap();
+        println!("{:?}", ex);
+    }
 }

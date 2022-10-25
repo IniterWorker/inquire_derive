@@ -16,3 +16,11 @@ inquire = { version = "0.4" }
 [dev-dependencies]
 inquire = { version = "0.4" }
 inquire_derive = { path = "../inquire_derive" }
+
+[[example]]
+name = "text"
+path = "example/text.rs"
+
+[[example]]
+name = "select"
+path = "example/select.rs"
