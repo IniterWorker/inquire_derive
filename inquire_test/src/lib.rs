@@ -1,6 +1,41 @@
 #[cfg(test)]
 mod tests {
+    use inquire::length;
+    use inquire::CustomUserError;
     use inquire_derive::InquireForm;
+
+    fn suggester(val: &str) -> Result<Vec<String>, CustomUserError> {
+        let suggestions = [
+            "Andrew",
+            "Charles",
+            "Christopher",
+            "Daniel",
+            "David",
+            "Donald",
+            "Edward",
+            "George",
+            "James",
+            "John",
+            "Johnny",
+            "Kevin",
+            "Mark",
+            "Michael",
+            "Paul",
+            "Richard",
+            "Robert",
+            "Steven",
+            "Thomas",
+            "William",
+        ];
+
+        let val_lower = val.to_lowercase();
+
+        Ok(suggestions
+            .iter()
+            .filter(|s| s.to_lowercase().contains(&val_lower))
+            .map(|s| String::from(*s))
+            .collect())
+    }
 
     #[test]
     fn basic_inquire() {
@@ -10,6 +45,19 @@ mod tests {
             pub main_text: String,
             #[inquire(text())]
             pub text: String,
+            #[inquire(text(
+                prompt_message = "What's your path?",
+                initial_value = "/my/path",
+                default_value = "/my/path",
+                placeholder_value = "/my/path",
+                help_message = "insert my path",
+                page_size = 1,
+                // TODO: Try to figure out another way
+                validators = "vec![Box::new(length!(5))]",
+                // TODO: Is it the right path?
+                autocompleter = "&suggester"
+            ))]
+            pub path: String,
         }
 
         impl Default for TestStruct {
@@ -17,6 +65,7 @@ mod tests {
                 Self {
                     main_text: String::from("test"),
                     text: String::from("test"),
+                    path: String::new(),
                 }
             }
         }
@@ -24,6 +73,7 @@ mod tests {
         let mut ex = TestStruct {
             main_text: String::from("difference1"),
             text: String::from("difference2"),
+            path: String::new(),
         };
         ex.inquire_mut().unwrap();
         println!("{:?}", ex);

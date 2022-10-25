@@ -1,5 +1,5 @@
-mod inquire_invoke;
-pub use inquire_invoke::*;
+mod inquire_form;
+pub use inquire_form::*;
 
 mod text;
 pub use text::*;

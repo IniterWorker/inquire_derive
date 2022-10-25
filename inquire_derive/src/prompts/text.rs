@@ -9,23 +9,23 @@ use super::FieldInquireForm;
 #[derive(Debug, FromMeta, Default)]
 #[darling(default)]
 pub struct Text {
-    /// Main message when prompting the user for input, "What is your name?" in the example above.
+    /// Main message when prompting the user for input, "What is your #fieldname?" in the example above.
     #[darling(default)]
-    pub prompt_message: Option<syn::Lit>,
+    pub prompt_message: Option<syn::LitStr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<syn::Lit>,
+    pub help_message: Option<syn::LitStr>,
     /// Default value returned when the user submits an empty response.
-    pub default_value: Option<syn::Lit>,
+    pub default_value: Option<syn::LitStr>,
     /// Initial value of the prompt's text input, in case you want to display the prompt with something already filled in.
-    pub initial_value: Option<syn::Lit>,
+    pub initial_value: Option<syn::LitStr>,
     /// Short hint that describes the expected value of the input.
-    pub placeholder_value: Option<syn::Lit>,
+    pub placeholder_value: Option<syn::LitStr>,
     /// Custom validators to the user's input, displaying an error message if the input does not pass the requirements.
-    pub validators: Option<syn::Lit>,
+    pub validators: Option<syn::Expr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.
-    pub formatter: Option<syn::Lit>,
+    pub formatter: Option<syn::Expr>,
     /// Sets a new autocompleter
-    pub autocompleter: Option<syn::Lit>,
+    pub autocompleter: Option<syn::Expr>,
     /// Page size of the suggestions displayed to the user, when applicable.
     pub page_size: Option<syn::LitInt>,
 }
@@ -60,19 +60,19 @@ impl FieldInquireForm for Text {
             }
         };
         let help_message = match &self.help_message {
-            Some(help_message) => quote! { #help_message },
+            Some(help_message) => quote! { Some(#help_message) },
             None => quote! { None },
         };
         let default_value = match &self.default_value {
-            Some(default_value) => quote! { #default_value },
+            Some(default_value) => quote! { Some(#default_value) },
             None => quote! { Some(self.#fieldname_idt.as_str()) },
         };
         let initial_value = match &self.initial_value {
-            Some(initial_value) => quote! { #initial_value },
+            Some(initial_value) => quote! { Some(#initial_value) },
             None => quote! { None },
         };
         let placeholder_value = match &self.placeholder_value {
-            Some(placeholder_value) => quote! { #placeholder_value },
+            Some(placeholder_value) => quote! { Some(#placeholder_value) },
             None => quote! { None },
         };
         let validators = match &self.validators {
@@ -80,11 +80,11 @@ impl FieldInquireForm for Text {
             None => quote! { Vec::new() },
         };
         let formatter = match &self.formatter {
-            Some(formatter) => quote! { #formatter },
+            Some(formatter) => quote! { Some(#formatter) },
             None => quote! { inquire::Text::DEFAULT_FORMATTER },
         };
         let autocompleter = match &self.autocompleter {
-            Some(autocompleter) => quote! { #autocompleter },
+            Some(autocompleter) => quote! { Some(Box::new(#autocompleter)) },
             None => quote! { None },
         };
         let page_size = match &self.page_size {
