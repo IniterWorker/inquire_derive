@@ -1,6 +1,7 @@
 use darling::{FromMeta, ToTokens};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
+use syn::{Expr, LitStr};
 
 use crate::field::FieldSingleContext;
 
@@ -11,7 +12,7 @@ use super::FieldInquireForm;
 #[darling(default)]
 pub struct Password {
     /// Message to be presented to the user.
-    pub prompt_message: Option<syn::LitStr>,
+    pub prompt_message: Option<LitStr>,
     /// Set the display mode of the text input among hidden, masked and full via the PasswordDisplayMode enum.
     /// * Hidden: default behavior, no UI indicators.
     /// * Masked: behaves like a normal text input, except that all characters of the input are masked to a special character, which is '*' by default but can be customized via RenderConfig.
@@ -20,15 +21,15 @@ pub struct Password {
     /// By enabling this feature by calling the with_display_toggle_enabled(), you allow the user to toggle between the standard display mode set and the full display mode.
     /// * If you have set the standard display mode to hidden (which is also the default) or masked, the user can press Ctrl+R to change the display mode to Full, and Ctrl+R again to change it back to the standard one.
     /// * Obviously, if you have set the standard display mode to Full, pressing Ctrl+R won't cause any changes.
-    pub enable_display_toggle: Option<syn::LitBool>,
+    pub enable_display_toggle: Option<Expr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<syn::LitStr>,
+    pub help_message: Option<LitStr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.
     /// * By default, it prints eight asterisk characters: ********.
-    pub formatter: Option<syn::Expr>,
+    pub formatter: Option<Expr>,
     /// Custom validators to make sure a given submitted input pass the specified requirements, e.g. not allowing empty inputs or requiring special characters.
     /// * No validators are on by default.
-    pub validators: Option<syn::Expr>,
+    pub validators: Option<Expr>,
 }
 
 impl FieldInquireForm for Password {

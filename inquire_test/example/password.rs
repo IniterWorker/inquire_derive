@@ -9,7 +9,7 @@ pub struct TestStruct {
         formatter = "&|_| String::from(\"xoxox\")",
         validators = "Password::DEFAULT_VALIDATORS",
         display_mode = "masked",
-        enable_display_toggle = true
+        enable_display_toggle = "true"
     ))]
     pub path: String,
 }
