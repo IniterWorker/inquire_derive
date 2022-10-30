@@ -2,7 +2,8 @@ use darling::FromField;
 use proc_macro2::TokenStream;
 
 use crate::prompts::{
-    Confirm, CustomType, DateSelect, Editor, FieldInquireForm, MultiSelect, Password, Select, Text,
+    Confirm, CustomType, DateSelect, Editor, FieldInquireForm, MultiSelect, Nested, Password,
+    Select, Text,
 };
 
 #[derive(Debug)]
@@ -15,6 +16,7 @@ pub enum FieldType {
     Password(Box<Password>),
     CustomType(Box<CustomType>),
     Confirm(Box<Confirm>),
+    Nested(Box<Nested>),
 }
 
 #[derive(Debug)]
@@ -39,6 +41,7 @@ pub struct FieldMultiContext {
     pub password: Option<Password>,
     pub custom_type: Option<CustomType>,
     pub confirm: Option<Confirm>,
+    pub nested: Option<Nested>,
     #[darling(default)]
     pub skip: Option<bool>,
 }
@@ -52,7 +55,8 @@ impl FieldMultiContext {
             + self.editor.is_some() as i32
             + self.password.is_some() as i32
             + self.custom_type.is_some() as i32
-            + self.confirm.is_some() as i32;
+            + self.confirm.is_some() as i32
+            + self.nested.is_some() as i32;
 
         // too many definition
         if count > 1 {
@@ -75,6 +79,8 @@ impl FieldMultiContext {
             Ok(FieldType::CustomType(Box::new(ft)))
         } else if let Some(ft) = self.confirm {
             Ok(FieldType::Confirm(Box::new(ft)))
+        } else if let Some(ft) = self.nested {
+            Ok(FieldType::Nested(Box::new(ft)))
         } else {
             Err(Error::NotImplemented)
         }
@@ -92,6 +98,7 @@ pub struct FieldSingleContext {
 impl FieldSingleContext {
     pub fn generate_inquire_method_call(&self) -> Result<TokenStream, Vec<syn::Error>> {
         match &self.field_type {
+            crate::field::FieldType::Nested(ft) => ft.generate_inquire_method_call(self),
             crate::field::FieldType::Text(ft) => ft.generate_inquire_method_call(self),
             crate::field::FieldType::DateSelect(ft) => ft.generate_inquire_method_call(self),
             crate::field::FieldType::Select(ft) => ft.generate_inquire_method_call(self),
@@ -105,6 +112,7 @@ impl FieldSingleContext {
 
     pub fn generate_inquire_method(&self) -> Result<TokenStream, Vec<syn::Error>> {
         match &self.field_type {
+            crate::field::FieldType::Nested(ft) => ft.generate_inquire_method(self),
             crate::field::FieldType::Text(ft) => ft.generate_inquire_method(self),
             crate::field::FieldType::DateSelect(ft) => ft.generate_inquire_method(self),
             crate::field::FieldType::Select(ft) => ft.generate_inquire_method(self),

@@ -18,6 +18,10 @@ inquire = { version = "0.4" }
 inquire_derive = { path = "../inquire_derive" }
 
 [[example]]
+name = "skip"
+path = "example/skip.rs"
+
+[[example]]
 name = "text"
 path = "example/text.rs"
 
@@ -32,3 +36,7 @@ path = "example/confirm.rs"
 [[example]]
 name = "password"
 path = "example/password.rs"
+
+[[example]]
+name = "form"
+path = "example/form.rs"

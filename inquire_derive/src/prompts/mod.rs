@@ -16,6 +16,9 @@ pub use editor::*;
 mod password;
 pub use password::*;
 
+mod nested;
+pub use nested::*;
+
 mod select;
 pub use select::*;
 

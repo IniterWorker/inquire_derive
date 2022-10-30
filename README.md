@@ -7,26 +7,11 @@ Derive support for [inquire](https://github.com/mikaelmello/inquire).
 
 ## Usage
 
-### Text
+### Example
 
-```bash
-cargo run --example text # example/text.rs
-```
+* __Text__: `cargo run --example text`
+* __Select__: `cargo run --example select`
+* __Password__: `cargo run --example password`
+* __Confirm__: `cargo run --example confirm`
+* __Form(Nested)__: `cargo run --example form`
 
-### Password
-
-```bash
-cargo run --example password # example/password.rs
-```
-
-### Select 
-
-```bash
-cargo run --example select # example/select.rs
-```
-
-## Experimental
-
-```sh
-cargo build && cargo test  -- --nocapture
-```

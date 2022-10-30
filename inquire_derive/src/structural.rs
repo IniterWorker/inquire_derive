@@ -25,6 +25,7 @@ impl InquireFormOpts {
             .unwrap()
             .fields
             .into_iter()
+            .filter(|field| !(field.skip.is_some() && field.skip.unwrap()))
             .map(|field| FieldSingleContext {
                 ident: field.ident.clone().unwrap(),
                 private: self.private,
