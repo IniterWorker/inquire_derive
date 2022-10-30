@@ -13,6 +13,12 @@ Derive support for [inquire](https://github.com/mikaelmello/inquire).
 cargo run --example text # example/text.rs
 ```
 
+### Password
+
+```bash
+cargo run --example password # example/password.rs
+```
+
 ### Select 
 
 ```bash

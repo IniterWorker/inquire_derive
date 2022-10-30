@@ -24,3 +24,8 @@ path = "example/text.rs"
 [[example]]
 name = "select"
 path = "example/select.rs"
+
+
+[[example]]
+name = "password"
+path = "example/password.rs"
