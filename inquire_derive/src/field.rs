@@ -7,14 +7,14 @@ use crate::prompts::{
 
 #[derive(Debug)]
 pub enum FieldType {
-    Text(Text),
-    DateSelect(DateSelect),
-    Select(Select),
-    MultiSelect(MultiSelect),
-    Editor(Editor),
-    Password(Password),
-    CustomType(CustomType),
-    Confirm(Confirm),
+    Text(Box<Text>),
+    DateSelect(Box<DateSelect>),
+    Select(Box<Select>),
+    MultiSelect(Box<MultiSelect>),
+    Editor(Box<Editor>),
+    Password(Box<Password>),
+    CustomType(Box<CustomType>),
+    Confirm(Box<Confirm>),
 }
 
 #[derive(Debug)]
@@ -60,21 +60,21 @@ impl FieldMultiContext {
         }
 
         if let Some(ft) = self.text {
-            Ok(FieldType::Text(ft))
+            Ok(FieldType::Text(Box::new(ft)))
         } else if let Some(ft) = self.date_select {
-            Ok(FieldType::DateSelect(ft))
+            Ok(FieldType::DateSelect(Box::new(ft)))
         } else if let Some(ft) = self.select {
-            Ok(FieldType::Select(ft))
+            Ok(FieldType::Select(Box::new(ft)))
         } else if let Some(ft) = self.multi_select {
-            Ok(FieldType::MultiSelect(ft))
+            Ok(FieldType::MultiSelect(Box::new(ft)))
         } else if let Some(ft) = self.editor {
-            Ok(FieldType::Editor(ft))
+            Ok(FieldType::Editor(Box::new(ft)))
         } else if let Some(ft) = self.password {
-            Ok(FieldType::Password(ft))
+            Ok(FieldType::Password(Box::new(ft)))
         } else if let Some(ft) = self.custom_type {
-            Ok(FieldType::CustomType(ft))
+            Ok(FieldType::CustomType(Box::new(ft)))
         } else if let Some(ft) = self.confirm {
-            Ok(FieldType::Confirm(ft))
+            Ok(FieldType::Confirm(Box::new(ft)))
         } else {
             Err(Error::NotImplemented)
         }
