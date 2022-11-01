@@ -25,6 +25,8 @@ pub enum Error {
     TooManyFieldType,
     /// Not implemented
     NotImplemented,
+    /// Feature Not Enabled
+    NotEnabled(&'static str),
 }
 
 #[derive(Debug, FromField)]
@@ -66,13 +68,23 @@ impl FieldMultiContext {
         if let Some(ft) = self.text {
             Ok(FieldType::Text(Box::new(ft)))
         } else if let Some(ft) = self.date_select {
-            Ok(FieldType::DateSelect(Box::new(ft)))
+            if cfg!(feature = "date") {
+                Ok(FieldType::DateSelect(Box::new(ft)))
+            } else {
+                Err(Error::NotEnabled("inquire's date must be enabled!"))
+            }
         } else if let Some(ft) = self.select {
             Ok(FieldType::Select(Box::new(ft)))
         } else if let Some(ft) = self.multi_select {
             Ok(FieldType::MultiSelect(Box::new(ft)))
         } else if let Some(ft) = self.editor {
-            Ok(FieldType::Editor(Box::new(ft)))
+            if cfg!(feature = "editor") {
+                Ok(FieldType::Editor(Box::new(ft)))
+            } else {
+                Err(Error::NotEnabled(
+                    "inquire's feature editor must be enabled!",
+                ))
+            }
         } else if let Some(ft) = self.password {
             Ok(FieldType::Password(Box::new(ft)))
         } else if let Some(ft) = self.custom_type {

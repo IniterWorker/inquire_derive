@@ -11,7 +11,8 @@ repository = "https://github.com/IniterWorker/inquire_derive"
 readme = "crates-io.md"
 
 [dependencies]
-inquire = { version = "0.4" }
+inquire = { version = "0.4", features = ["date"] }
+chrono = { version = "0.4" }
 
 [dev-dependencies]
 inquire = { version = "0.4" }
@@ -36,6 +37,10 @@ path = "example/confirm.rs"
 [[example]]
 name = "password"
 path = "example/password.rs"
+
+[[example]]
+name = "date_select"
+path = "example/date_select.rs"
 
 [[example]]
 name = "form"

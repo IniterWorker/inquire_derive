@@ -22,3 +22,9 @@ darling = "0.14.1"
 
 [dev-dependencies]
 inquire = { version = "0.4" }
+
+# Fit with inquire features
+[features]
+default = ["date", "editor"]
+date = []
+editor = []
