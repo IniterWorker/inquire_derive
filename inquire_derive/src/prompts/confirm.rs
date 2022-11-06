@@ -1,7 +1,7 @@
 use darling::{FromMeta, ToTokens};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use syn::{Expr, LitStr};
+use syn::Expr;
 
 use crate::field::FieldSingleContext;
 
@@ -12,13 +12,13 @@ use super::FieldInquireForm;
 #[darling(default)]
 pub struct Confirm {
     /// Required when creating the prompt.
-    pub prompt_message: Option<LitStr>,
+    pub prompt_message: Option<Expr>,
     /// Default value returned when the user submits an empty response.
     pub default_value: Option<Expr>,
     /// Short hint that describes the expected value of the input.
-    pub placeholder_value: Option<LitStr>,
+    pub placeholder_value: Option<Expr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<LitStr>,
+    pub help_message: Option<Expr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.
     /// Formats true to "Yes" and false to "No", by default.
     pub formatter: Option<Expr>,
@@ -30,7 +30,7 @@ pub struct Confirm {
     pub default_value_formatter: Option<Expr>,
     /// Error message to display when a value could not be parsed from the input.
     /// Set to "Invalid answer, try typing 'y' for yes or 'n' for no" by default.
-    pub error_message: Option<LitStr>,
+    pub error_message: Option<Expr>,
 }
 
 impl FieldInquireForm for Confirm {

@@ -1,5 +1,6 @@
 use darling::FromMeta;
 use proc_macro2::TokenStream;
+use syn::LitStr;
 
 use crate::field::FieldSingleContext;
 
@@ -11,7 +12,7 @@ use super::FieldInquireForm;
 #[darling(default)]
 pub struct MultiSelect {
     /// Required when creating the prompt.
-    pub prompt_message: Option<String>,
+    pub prompt_message: Option<LitStr>,
     /// Options displayed to the user. must be non-empty.
     pub options_list: Option<String>,
     /// Options that are selected by default when the prompt is first rendered. The user can unselect them. If any of the indices is out-of-range of the option list, the prompt will fail with an InquireError::InvalidConfiguration error.

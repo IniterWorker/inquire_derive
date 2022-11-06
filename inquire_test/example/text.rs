@@ -38,12 +38,12 @@ fn suggester(val: &str) -> Result<Vec<String>, CustomUserError> {
 #[derive(Debug, Default, InquireForm)]
 pub struct TestStruct {
     #[inquire(text(
-        prompt_message = "What's your path?",
-        initial_value = "/my/initial/path",
-        default_value = "/my/default/path",
-        placeholder_value = "/my/placeholder/path",
-        help_message = "my helper message for path",
-        // page_size = 1,
+        prompt_message = "\"What's your path?\"",
+        initial_value = "\"/my/initial/path\"",
+        default_value = "\"/my/default/path\"",
+        placeholder_value = "\"/my/placeholder/path\"",
+        help_message = "\"my helper message for path\"",
+        page_size = "1",
         // validators = "vec![Box::new(length!(5))]",
         autocompleter = "&suggester"
     ))]

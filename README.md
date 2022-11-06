@@ -30,9 +30,9 @@ use inquire_derive::InquireForm;
 #[derive(Debug, InquireForm)]
 pub struct Demo {
     #[inquire(text(
-        prompt_message = "What's your path?",
-        placeholder_value = "/my/placeholder/path",
-        help_message = "my helper message for path",
+        prompt_message = "\"What's your path?\"",
+        initial_value = "\"/my/initial/path\"",
+        placeholder_value = "\"/my/placeholder/path\"",
     ))]
     pub path: String,
 }
@@ -55,6 +55,8 @@ fn main() {
 
 * __Text__: `cargo run --example text`
 * __Select__: `cargo run --example select`
+* __CustomType__: `cargo run --example custom_type`
+* __Editor__: `cargo run --example editor`
 * __Password__: `cargo run --example password`
 * __Confirm__: `cargo run --example confirm`
 * __DateSelect__: `cargo run --example date_select`

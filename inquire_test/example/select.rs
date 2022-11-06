@@ -7,7 +7,7 @@ fn get_list_options() -> Vec<String> {
 #[derive(Debug, InquireForm)]
 pub struct TestStruct {
     #[inquire(select(
-        prompt_message = "What's your selection?",
+        prompt_message = "\"What's your selection?\"",
         options = "get_list_options()"
     ))]
     pub path: String,

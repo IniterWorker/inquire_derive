@@ -1,7 +1,7 @@
 use darling::{FromMeta, ToTokens};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use syn::{Error, Expr, LitInt, LitStr};
+use syn::{Error, Expr};
 
 use crate::field::FieldSingleContext;
 
@@ -12,15 +12,15 @@ use super::FieldInquireForm;
 pub struct Text {
     /// Main message when prompting the user for input, "What is your #fieldname?" in the example above.
     #[darling(default)]
-    pub prompt_message: Option<LitStr>,
+    pub prompt_message: Option<Expr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<LitStr>,
+    pub help_message: Option<Expr>,
     /// Default value returned when the user submits an empty response.
-    pub default_value: Option<LitStr>,
+    pub default_value: Option<Expr>,
     /// Initial value of the prompt's text input, in case you want to display the prompt with something already filled in.
-    pub initial_value: Option<LitStr>,
+    pub initial_value: Option<Expr>,
     /// Short hint that describes the expected value of the input.
-    pub placeholder_value: Option<LitStr>,
+    pub placeholder_value: Option<Expr>,
     /// Custom validators to the user's input, displaying an error message if the input does not pass the requirements.
     pub validators: Option<Expr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.
@@ -28,7 +28,7 @@ pub struct Text {
     /// Sets a new autocompleter
     pub autocompleter: Option<Expr>,
     /// Page size of the suggestions displayed to the user, when applicable.
-    pub page_size: Option<LitInt>,
+    pub page_size: Option<Expr>,
 }
 
 impl FieldInquireForm for Text {

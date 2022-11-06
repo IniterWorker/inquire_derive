@@ -1,7 +1,7 @@
 use darling::{FromMeta, ToTokens};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use syn::{Error, Expr, LitBool, LitStr};
+use syn::{Error, Expr};
 
 use crate::field::FieldSingleContext;
 
@@ -11,13 +11,13 @@ use super::FieldInquireForm;
 #[darling(default)]
 pub struct DateSelect {
     /// Main message when prompting the user for input, "What is your name?" in the example above.
-    pub prompt_message: Option<LitStr>,
+    pub prompt_message: Option<Expr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<LitStr>,
+    pub help_message: Option<Expr>,
     ///  Default value selected when the calendar is displayed and the one select if the user submits without any previous actions. Current date by default.
     pub default_value: Option<Expr>,
     ///  Default value selected when the calendar is displayed and the one select if the user submits without any previous actions. Current date by default.
-    pub vim_mode: Option<LitBool>,
+    pub vim_mode: Option<Expr>,
     /// Custom validators to the user's selected date, displaying an error message if the date does not pass the requirements.
     pub validators: Option<Expr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.

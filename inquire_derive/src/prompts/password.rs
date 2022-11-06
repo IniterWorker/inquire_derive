@@ -1,7 +1,7 @@
 use darling::{FromMeta, ToTokens};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use syn::{Expr, LitStr};
+use syn::Expr;
 
 use crate::field::FieldSingleContext;
 
@@ -12,18 +12,18 @@ use super::FieldInquireForm;
 #[darling(default)]
 pub struct Password {
     /// Message to be presented to the user.
-    pub prompt_message: Option<LitStr>,
+    pub prompt_message: Option<Expr>,
     /// Set the display mode of the text input among hidden, masked and full via the PasswordDisplayMode enum.
     /// * Hidden: default behavior, no UI indicators.
     /// * Masked: behaves like a normal text input, except that all characters of the input are masked to a special character, which is '*' by default but can be customized via RenderConfig.
     /// * Full: behaves like a normal text input, no modifications.
-    pub display_mode: Option<String>,
+    pub display_mode: Option<Expr>,
     /// By enabling this feature by calling the with_display_toggle_enabled(), you allow the user to toggle between the standard display mode set and the full display mode.
     /// * If you have set the standard display mode to hidden (which is also the default) or masked, the user can press Ctrl+R to change the display mode to Full, and Ctrl+R again to change it back to the standard one.
     /// * Obviously, if you have set the standard display mode to Full, pressing Ctrl+R won't cause any changes.
     pub enable_display_toggle: Option<Expr>,
     /// Message displayed at the line below the prompt.
-    pub help_message: Option<LitStr>,
+    pub help_message: Option<Expr>,
     /// Custom formatter in case you need to pre-process the user input before showing it as the final answer.
     /// * By default, it prints eight asterisk characters: ********.
     pub formatter: Option<Expr>,
@@ -65,11 +65,8 @@ impl FieldInquireForm for Password {
             None => quote! { inquire::Password::DEFAULT_HELP_MESSAGE },
         };
         let display_mode = match &self.display_mode {
-            Some(display_mode) => match display_mode.to_lowercase().as_str() {
-                "hidden" => quote! { inquire::PasswordDisplayMode::Hidden },
-                "masked" => quote! { inquire::PasswordDisplayMode::Masked },
-                "full" => quote! { inquire::PasswordDisplayMode::Full },
-                _ => unimplemented!("Please provide one of them [hidden, masked, full]"),
+            Some(display_mode) => quote! {
+                #display_mode
             },
             None => quote! { inquire::Password::DEFAULT_DISPLAY_MODE },
         };
