@@ -43,6 +43,10 @@ name = "date_select"
 path = "example/date_select.rs"
 
 [[example]]
+name = "multi_select"
+path = "example/multi_select.rs"
+
+[[example]]
 name = "demo"
 path = "example/demo.rs"
 

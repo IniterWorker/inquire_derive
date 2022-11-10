@@ -1,5 +1,4 @@
 use darling::{ast, util, FromDeriveInput};
-use proc_macro2::TokenStream;
 use quote::quote;
 
 use crate::field::{FieldMultiContext, FieldSingleContext};
@@ -16,7 +15,7 @@ pub struct InquireFormOpts {
 }
 
 impl InquireFormOpts {
-    pub fn gen(self) -> Result<TokenStream, Vec<syn::Error>> {
+    pub fn gen(self) -> syn::Result<proc_macro2::TokenStream> {
         let ident = &self.ident;
         let fields = self
             .data
@@ -35,22 +34,46 @@ impl InquireFormOpts {
             .collect::<Vec<_>>();
 
         // Generate Methods' impls
-        let methods = fields.iter().fold(Vec::new(), |mut acc, elem| {
-            let method = elem.generate_inquire_method().unwrap();
-            acc.push(method);
-            acc
-        });
+        let (methods, errs) =
+            fields
+                .iter()
+                .fold((Vec::new(), Vec::new()), |(mut acc, mut acce), elem| {
+                    let method = elem.generate_inquire_method();
+                    match method {
+                        Ok(ts) => acc.push(ts),
+                        Err(e) => acce.extend(e),
+                    }
+                    (acc, acce)
+                });
+        let methods = if errs.len() > 0 {
+            // TODO: improve error handling
+            Err(errs.get(0).unwrap().clone())
+        } else {
+            Ok(methods)
+        }?;
 
         let methods = quote! {
             #(#methods)*
         };
 
         // Generate Methods' calls
-        let methods_calls = fields.iter().fold(Vec::new(), |mut acc, elem| {
-            let method = elem.generate_inquire_method_call().unwrap();
-            acc.push(method);
-            acc
-        });
+        let (methods_calls, errs) =
+            fields
+                .iter()
+                .fold((Vec::new(), Vec::new()), |(mut acc, mut acce), elem| {
+                    let method = elem.generate_inquire_method_call();
+                    match method {
+                        Ok(ts) => acc.push(ts),
+                        Err(e) => acce.extend(e),
+                    }
+                    (acc, acce)
+                });
+        let methods_calls = if errs.len() > 0 {
+            // TODO: improve error handling
+            Err(errs.get(0).unwrap().clone())
+        } else {
+            Ok(methods_calls)
+        }?;
 
         let inquire = quote! {
                 /// Will invoke inquire prompts on mutable `Self`

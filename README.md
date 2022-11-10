@@ -2,9 +2,25 @@
 
 ---
 
-Derive support for [inquire](https://github.com/mikaelmello/inquire).
-- See [inquire #65](https://github.com/mikaelmello/inquire/issues/65)
-- Early stage of development
+Library to support `inquire_derive` via `proc-macro`.
+
+## Early stage
+
+- Derive support for [inquire](https://github.com/mikaelmello/inquire) see [#supported](#supported-widgets).
+- Original feature request [inquire #65](https://github.com/mikaelmello/inquire/issues/65)
+
+## Supported Widgets
+
+* [x] __Text__
+* [x] __Select__
+* [x] __MultiSelect__
+* [x] __CustomType__
+* [x] __Editor__
+* [x] __Password__
+* [x] __Confirm__
+* [x] __DateSelect__
+* [x] __Nested__
+
 
 ## Inquire Derive in action
 
@@ -51,10 +67,11 @@ fn main() {
 }
 ```
 
-## Tests/Example
+## Examples
 
 * __Text__: `cargo run --example text`
 * __Select__: `cargo run --example select`
+* __MultiSelect__: `cargo run --example multi_select`
 * __CustomType__: `cargo run --example custom_type`
 * __Editor__: `cargo run --example editor`
 * __Password__: `cargo run --example password`
@@ -62,3 +79,6 @@ fn main() {
 * __DateSelect__: `cargo run --example date_select`
 * __Form(Nested)__: `cargo run --example form`
 
+## License
+
+See LICENSE for details.
